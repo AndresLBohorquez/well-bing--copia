@@ -86,7 +86,7 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("message",
                     "No se ha podido modificar la tarea");
         }
-        return "redirect:/admin";
+        return "redirect:admin";
     }
 
     @RequestMapping("/admin/eliminar-tarea/{id}")
@@ -102,7 +102,7 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("message",
                     "No se ha podido eliminar la tarea");
         }
-        return "redirect:/admin";
+        return "redirect:admin";
     }
 
     @GetMapping("/admin/usuarios")
@@ -115,7 +115,7 @@ public class AdminController {
             System.out.println("UsuarioController.goToUsuarios()" + e.getMessage());
         }
 
-        return "/admin/usuarios";
+        return "admin/usuarios";
     }
 
     @GetMapping("/admin/agregar-usuario")
@@ -124,7 +124,7 @@ public class AdminController {
         model.addAttribute("user", new Usuario());
         List<Rol> lista = rolService.getRoles();
         model.addAttribute("listaRoles", lista);
-        return "/admin/add-usuario";
+        return "admin/add-usuario";
     }
 
     @PostMapping("/admin/agregar-usuario")
@@ -177,7 +177,7 @@ public class AdminController {
 
         }
 
-        return "redirect:/admin/usuarios";
+        return "redirect:admin/usuarios";
     }
 
     @GetMapping("/admin/editar-usuario/{id}")
@@ -268,7 +268,7 @@ public class AdminController {
                         "No se ha podido registrar el usuario");
             }
         }
-        return "redirect:/admin/usuarios";
+        return "redirect:admin/usuarios";
     }
 
     @PostMapping("/admin/banear-usuario/{id}")
@@ -282,7 +282,7 @@ public class AdminController {
             System.out.println("AdminController.banearUsuario()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No se ha podido banear al usuario");
         }
-        return "redirect:/admin/usuarios";
+        return "redirect:admin/usuarios";
     }
 
     @PostMapping("/eliminar-usuario/{id}")
@@ -297,7 +297,7 @@ public class AdminController {
             System.out.println("AdminController.eliminarUsuario()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No se ha podido eliminar al usuario");
         }
-        return "redirect:/admin/usuarios";
+        return "redirect:admin/usuarios";
     }
 
     @GetMapping("/admin/detalle-usuario/{id}")
