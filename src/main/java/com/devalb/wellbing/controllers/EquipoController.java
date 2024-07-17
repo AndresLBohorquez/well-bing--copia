@@ -60,7 +60,7 @@ public class EquipoController {
             System.out.println("EquipoController.aprobarEquipo()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "El equipo no ha sido aprobado");
         }
-        return "redirect:admin/equipo";
+        return "redirect:/admin/equipo";
     }
     @RequestMapping("/admin/equipo/pendiente/{id}")
     public String pendineteEquipo(@PathVariable Long id, RedirectAttributes redirectAttributes) {
@@ -74,7 +74,7 @@ public class EquipoController {
             System.out.println("EquipoController.pendienteEquipo()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "El equipo no ha sido asiganado a Pendiente");
         }
-        return "redirect:admin/equipo";
+        return "redirect:/admin/equipo";
     }
     @RequestMapping("/admin/equipo/rechazar/{id}")
     public String rechazarEquipo(@PathVariable Long id, RedirectAttributes redirectAttributes) {
@@ -88,7 +88,7 @@ public class EquipoController {
             System.out.println("EquipoController.rechazarEquipo()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "El equipo no ha sido rechazado");
         }
-        return "redirect:admin/equipo";
+        return "redirect:/admin/equipo";
     }
 
     /*

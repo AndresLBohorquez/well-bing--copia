@@ -81,7 +81,7 @@ public class ActivacionController {
             System.out.println("ActivacionController.postMethodName()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible pre activar al usuario");
         }
-        return "redirect:admin/activaciones";
+        return "redirect:/admin/activaciones";
     }
 
     @RequestMapping("/admin/activacion/activar/{id}")
@@ -96,7 +96,7 @@ public class ActivacionController {
             System.out.println("ActivacionController.activar()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible aceptar activación del usuario");
         }
-        return "redirect:admin/activaciones";
+        return "redirect:/admin/activaciones";
     }
 
     @RequestMapping("/admin/activacion/desactivar/{id}")
@@ -111,7 +111,7 @@ public class ActivacionController {
             System.out.println("ActivacionController.desactivar()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible desactivar al usuario");
         }
-        return "redirect:admin/activaciones";
+        return "redirect:/admin/activaciones";
     }
 
     @RequestMapping("/admin/activacion/rechazar/{id}")
@@ -126,7 +126,7 @@ public class ActivacionController {
             System.out.println("ActivacionController.rechazar()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible rechazar la activación del usuario");
         }
-        return "redirect:admin/activaciones";
+        return "redirect:/admin/activaciones";
     }
 
     @RequestMapping("/admin/activacion/validar/{id}")
@@ -141,7 +141,7 @@ public class ActivacionController {
             System.out.println("ActivacionController.validar()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible validar la activación del usuario");
         }
-        return "redirect:admin/activaciones";
+        return "redirect:/admin/activaciones";
     }
 
     /*

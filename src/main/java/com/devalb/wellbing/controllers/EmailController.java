@@ -97,31 +97,31 @@ public class EmailController {
                         if (listaCorreos.size() > 1) {
                             redirectAttributes.addFlashAttribute("messageOK",
                                     cantidad + " Correos electrónicos enviados correctamente");
-                            return "redirect:admin/email";
+                            return "redirect:/admin/email";
                         } else {
                             redirectAttributes.addFlashAttribute("messageOK",
                                     "Correo electrónico enviado correctamente");
-                            return "redirect:admin/email";
+                            return "redirect:/admin/email";
                         }
 
                     } else {
                         redirectAttributes.addFlashAttribute("message", "Debe existir al menos un destinatario");
-                        return "redirect:admin/email";
+                        return "redirect:/admin/email";
                     }
                 } else {
                     redirectAttributes.addFlashAttribute("message", "El asunto no debe ser vacío");
-                    return "redirect:admin/email";
+                    return "redirect:/admin/email";
                 }
             } else {
                 redirectAttributes.addFlashAttribute("message", "El mensaje no debe ser vacío");
-                return "redirect:admin/email";
+                return "redirect:/admin/email";
             }
 
         } catch (Exception e) {
             System.out.println("EmailController.enviarEmailAdmin()" + e.getMessage());
         }
 
-        return "redirect:admin/email";
+        return "redirect:/admin/email";
     }
 
     @PostMapping("/email")
@@ -136,11 +136,11 @@ public class EmailController {
             mailSender.send(mail);
 
             log.info("Correo enviado correctamente");
-            return "redirect:email?success=true";
+            return "redirect:/email?success=true";
         } catch (Exception e) {
             log.info("Proceso de envio de email fallido");
             System.out.println("com.devalb.wellbing.controllers.sendEmail()" + e.getMessage());
-            return "redirect:email?error=true";
+            return "redirect:/email?error=true";
         }
     }
 
@@ -166,9 +166,9 @@ public class EmailController {
 
             mailSender.send(message);
 
-            return "redirect:email1?success=true";
+            return "redirect:/email1?success=true";
         } catch (Exception e) {
-            return "redirect:email1?error=true";
+            return "redirect:/email1?error=true";
         }
     }
 

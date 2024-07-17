@@ -89,7 +89,7 @@ public class ProductoController {
 
         productoService.addProducto(producto);
         redirectAttributes.addFlashAttribute("messageOK", "Producto guardado correctamente");
-        return "redirect:admin/productos";
+        return "redirect:/admin/productos";
     }
 
     @GetMapping("/admin/editar-producto/{id}")
@@ -110,7 +110,7 @@ public class ProductoController {
 
         if (productoExistente == null) {
             redirectAttributes.addFlashAttribute("message", "Producto no encontrado");
-            return "redirect:admin/productos";
+            return "redirect:/admin/productos";
         }
 
         if (producto.getNombre() != null && !producto.getNombre().isEmpty()) {
@@ -141,7 +141,7 @@ public class ProductoController {
 
         productoService.editProducto(productoExistente);
         redirectAttributes.addFlashAttribute("messageOK", "Producto actualizado correctamente");
-        return "redirect:admin/productos";
+        return "redirect:/admin/productos";
     }
 
     @RequestMapping("/admin/eliminar-producto/{id}")
@@ -154,7 +154,7 @@ public class ProductoController {
             redirectAttributes.addFlashAttribute("message", "Ha ocurrido un error");
         }
 
-        return "redirect:admin/productos";
+        return "redirect:/admin/productos";
     }
 
     @GetMapping("/secretario/productos")

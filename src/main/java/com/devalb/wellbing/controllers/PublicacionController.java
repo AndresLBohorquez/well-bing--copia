@@ -153,7 +153,7 @@ public class PublicacionController {
             e.printStackTrace();
         }
 
-        return "redirect:usuario/publicaciones";
+        return "redirect:/usuario/publicaciones";
     }
 
     @RequestMapping("/admin/aprobarPublicacion/{id}")
@@ -168,7 +168,7 @@ public class PublicacionController {
             System.out.println("PublicacionController.aprobarPublicacion()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible aprobar la publicación");
         }
-        return "redirect:admin/publicaciones";
+        return "redirect:/admin/publicaciones";
     }
 
     @RequestMapping("/admin/pendientePublicacion/{id}")
@@ -183,7 +183,7 @@ public class PublicacionController {
             System.out.println("PublicacionController.pendientePublicacion()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible modificar la publicación");
         }
-        return "redirect:admin/publicaciones";
+        return "redirect:/admin/publicaciones";
     }
 
     @RequestMapping("/admin/rechazarPublicacion/{id}")
@@ -198,7 +198,7 @@ public class PublicacionController {
             System.out.println("PublicacionController.rechazarPublicacion()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible rechazar la publicación");
         }
-        return "redirect:admin/publicaciones";
+        return "redirect:/admin/publicaciones";
     }
 
     /*
