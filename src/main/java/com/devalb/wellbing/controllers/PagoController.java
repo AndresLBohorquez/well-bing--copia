@@ -31,7 +31,7 @@ public class PagoController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/admin/pagos";
+        return "admin/pagos";
     }
 
     @GetMapping("/tesorero/pagos")
@@ -47,6 +47,6 @@ public class PagoController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/tesorero/pagos";
+        return "tesorero/pagos";
     }
 }

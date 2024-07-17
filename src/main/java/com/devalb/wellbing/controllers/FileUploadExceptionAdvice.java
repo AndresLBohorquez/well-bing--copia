@@ -12,6 +12,6 @@ public class FileUploadExceptionAdvice {
     public String handleMaxSizeException(MaxUploadSizeExceededException exc, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("message",
                 "El archivo es demasiado grande. El tamaño máximo permitido es 2MB.");
-        return "redirect:/usuario";
+        return "redirect:usuario";
     }
 }

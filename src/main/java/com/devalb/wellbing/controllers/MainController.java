@@ -74,9 +74,9 @@ public class MainController {
                     usu.getNombre(), usu.getApellido(),
                     usu.getUsername(), newPass);
 
-            return "redirect:/";
+            return "redirect:";
         } catch (Exception e) {
-            return "redirect:/recuperar-pass?error=true";
+            return "redirect:recuperar-pass?error=true";
         }
 
     }

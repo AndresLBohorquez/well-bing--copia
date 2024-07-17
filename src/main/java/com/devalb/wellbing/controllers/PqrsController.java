@@ -65,7 +65,7 @@ public class PqrsController {
     public String goToPqrs(Model model, Authentication auth) {
         cargarVistas(model, auth);
         model.addAttribute("listaPqrs", pqrsService.getPqrs());
-        return "/admin/pqrs";
+        return "admin/pqrs";
     }
 
     @GetMapping("/admin/responder-pqrs/{id}")
@@ -85,7 +85,7 @@ public class PqrsController {
         model.addAttribute("pqrsUsuario", pqrsUsuario);
         model.addAttribute("mensajeObj", new Mensaje());
         model.addAttribute("listaMensajes", listaMensajes);
-        return "/admin/responder-pqrs";
+        return "admin/responder-pqrs";
     }
 
     @PostMapping("/admin/responder-pqrs")
@@ -96,7 +96,7 @@ public class PqrsController {
             if (mensaje.getContenido().isEmpty() || mensaje.getContenido() == null) {
                 redirectAttributes.addFlashAttribute("message",
                         "No se ha podido responder la PQRS, el mensaje no puede estar vacío");
-                return "redirect:/admin/pqrs";
+                return "redirect:admin/pqrs";
             }
             var pqrs = pqrsService.getPqrsById(pqrsId);
             pqrs.setFechaActualizacion(LocalDateTime.now());
@@ -114,7 +114,7 @@ public class PqrsController {
             redirectAttributes.addFlashAttribute("message", "No se ha podido responder la PQRS");
         }
 
-        return "redirect:/admin/pqrs";
+        return "redirect:admin/pqrs";
     }
 
     @RequestMapping("/admin/pqrs/abrir/{id}")
@@ -130,7 +130,7 @@ public class PqrsController {
             System.out.println("PqrsController.abrirPqrs()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible abrir la PQRS");
         }
-        return "redirect:/admin/pqrs";
+        return "redirect:admin/pqrs";
     }
 
     @RequestMapping("/admin/pqrs/eliminar/{id}")
@@ -146,7 +146,7 @@ public class PqrsController {
             System.out.println("PqrsController.eliminarPqrs()" + e.getMessage());
             redirectAttributes.addFlashAttribute("message", "No ha sido posible eliminar la PQRS");
         }
-        return "redirect:/admin/pqrs";
+        return "redirect:admin/pqrs";
     }
 
     @GetMapping("/secretario/pqrs")
@@ -162,7 +162,7 @@ public class PqrsController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/secretario/pqrs";
+        return "secretario/pqrs";
     }
 
     @GetMapping("/secretario/responder-pqrs")
@@ -178,7 +178,7 @@ public class PqrsController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/secretario/responder-pqrs";
+        return "secretario/responder-pqrs";
     }
 
     @GetMapping("/usuario/pqrs")
@@ -251,7 +251,7 @@ public class PqrsController {
             redirectAttributes.addFlashAttribute("message", "No se ha podido enviar el mensaje");
         }
 
-        return "redirect:/usuario/pqrs-detalle/" + pqrsId;
+        return "redirect:usuario/pqrs-detalle/" + pqrsId;
     }
 
     @PostMapping("/usuario/pqrs")
@@ -279,7 +279,7 @@ public class PqrsController {
             redirectAttributes.addFlashAttribute("message", "No se ha podido crear la PQRS");
         }
 
-        return "redirect:/usuario/pqrs";
+        return "redirect:usuario/pqrs";
     }
 
     /*

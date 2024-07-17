@@ -134,13 +134,13 @@ public class UsuarioController {
             log.info("Usuario registrado correctamente");
             redirectAttributes.addFlashAttribute("messageOK",
                     "Usuario registrado correctamente");
-            return "redirect:/signup";
+            return "redirect:signup";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message",
                     "El usuario ya se encuentra registrado en el sistema.");
             log.info("Proceso de registro de usuario fallido");
             System.out.println("com.devalb.wellbing.controllers.userRegister()" + e.getMessage());
-            return "redirect:/signup";
+            return "redirect:signup";
         }
     }
 
@@ -172,7 +172,7 @@ public class UsuarioController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/tesorero/usuarios";
+        return "tesorero/usuarios";
     }
 
     @GetMapping("/tesorero/agregar-usuario")
@@ -188,7 +188,7 @@ public class UsuarioController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/tesorero/add-usuario";
+        return "tesorero/add-usuario";
     }
 
     @GetMapping("/secretario")
@@ -204,7 +204,7 @@ public class UsuarioController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/secretario/usuarios";
+        return "secretario/usuarios";
     }
 
     @GetMapping("/secretario/agregar-usuario")
@@ -220,7 +220,7 @@ public class UsuarioController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/secretario/add-usuario";
+        return "secretario/add-usuario";
     }
 
     @GetMapping("/usuario")
@@ -303,7 +303,7 @@ public class UsuarioController {
             System.out.println("UsuarioController.postMethodName()" + e.getMessage());
         }
 
-        return "redirect:/usuario";
+        return "redirect:usuario";
     }
 
     @PostMapping("/usuario")
@@ -400,7 +400,7 @@ public class UsuarioController {
         } catch (Exception e) {
             System.out.println("UsuarioController.postMethodName()" + e.getMessage());
         }
-        return "redirect:/usuario";
+        return "redirect:usuario";
     }
 
     @GetMapping("/usuario/equipo")
@@ -456,11 +456,11 @@ public class UsuarioController {
                 }
 
             }
-            return "redirect:/usuario/equipo";
+            return "redirect:usuario/equipo";
         } else {
             redirectAttributes.addFlashAttribute("message",
                     "No es posible agregar más miembros a su equipo de trabajo (máximo 21)");
-            return "redirect:/usuario/equipo";
+            return "redirect:usuario/equipo";
         }
 
     }

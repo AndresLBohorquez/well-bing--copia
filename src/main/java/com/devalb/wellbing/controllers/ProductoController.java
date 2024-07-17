@@ -54,14 +54,14 @@ public class ProductoController {
     public String goToProductos(Model model, Authentication auth) {
         cargarVistas(model, auth);
         model.addAttribute("productos", productoService.getProductosVisibles());
-        return "/admin/productos";
+        return "admin/productos";
     }
 
     @GetMapping("/admin/agregar-producto")
     public String goToAddproducto(Model model, Authentication auth) {
         cargarVistas(model, auth);
         model.addAttribute("producto", new Producto());
-        return "/admin/add-producto";
+        return "admin/add-producto";
     }
 
     @PostMapping("/admin/agregar-producto")
@@ -89,7 +89,7 @@ public class ProductoController {
 
         productoService.addProducto(producto);
         redirectAttributes.addFlashAttribute("messageOK", "Producto guardado correctamente");
-        return "redirect:/admin/productos";
+        return "redirect:admin/productos";
     }
 
     @GetMapping("/admin/editar-producto/{id}")
@@ -98,7 +98,7 @@ public class ProductoController {
 
         var producto = productoService.getProductoById(id);
         model.addAttribute("producto", producto);
-        return "/admin/edit-producto";
+        return "admin/edit-producto";
     }
 
     @PostMapping("/admin/editar-producto/{id}")
@@ -110,7 +110,7 @@ public class ProductoController {
 
         if (productoExistente == null) {
             redirectAttributes.addFlashAttribute("message", "Producto no encontrado");
-            return "redirect:/admin/productos";
+            return "redirect:admin/productos";
         }
 
         if (producto.getNombre() != null && !producto.getNombre().isEmpty()) {
@@ -141,7 +141,7 @@ public class ProductoController {
 
         productoService.editProducto(productoExistente);
         redirectAttributes.addFlashAttribute("messageOK", "Producto actualizado correctamente");
-        return "redirect:/admin/productos";
+        return "redirect:admin/productos";
     }
 
     @RequestMapping("/admin/eliminar-producto/{id}")
@@ -154,13 +154,13 @@ public class ProductoController {
             redirectAttributes.addFlashAttribute("message", "Ha ocurrido un error");
         }
 
-        return "redirect:/admin/productos";
+        return "redirect:admin/productos";
     }
 
     @GetMapping("/secretario/productos")
     public String goToSecretarioProductos(Model model, Authentication auth) {
         cargarVistas(model, auth);
-        return "/secretario/productos";
+        return "secretario/productos";
     }
 
     @GetMapping("/secretario/agregar-producto")
@@ -176,7 +176,7 @@ public class ProductoController {
             model.addAttribute("roles", usuarioService.getUsuarioByUsername(auth.getName()).getRoles());
 
         }
-        return "/secretario/add-producto";
+        return "secretario/add-producto";
     }
 
     @GetMapping("/admin/detalle-producto/{id}")
