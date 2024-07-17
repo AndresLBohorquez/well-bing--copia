@@ -160,14 +160,14 @@ h6{
     }
 }
 
-@media (max-height: 820px) {
+@media (max-height: 800px) {
     .body-signup {
         color: #606468;
         /* font-family: "Open Sans", sans-serif;
         font-size: 0.875rem;
         font-weight: 400; */
         line-height: 1.5;
-        margin: 50px;
-        min-block-size: 105vh;
+        margin: 0px;
+        min-block-size: 130vh;
     }
 }
