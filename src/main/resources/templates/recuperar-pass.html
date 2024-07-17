@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla :: head(Recuperar + ' ' + contraseña, login)}"></head>
+
+<header th:replace="~{layout/plantilla :: header('','','','','active')}"></header>
+
+<body class="align">
+    <div class="grid">
+        <form th:action="@{/recuperar-pass}" th:object="${user}" method="POST" class="form login">
+            <div class="form_field">
+                <label><i class="fa fa-at" style="color: #606468;"></i></label>
+                <input th:field="*{email}" type="email" name="email" class="form_input" placeholder="Correo" required>
+            </div>
+
+            <div class="form_field">
+                <button class="submitButton" type="submit">Recuperar</button>
+            </div>
+        </form>
+        <p class="text--center">¿Aun no eres miembro? <a class="link" href="/signup">Registrarse</a></p>
+        <p class="text--center">Ya eres miembro? <a class="link" href="/login">Iniciar Sesión</a></p>
+    </div>
+
+    <!-- PENDIENTE CONFIGURAR ALERTAS -->
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'error',
+                title: 'Nombre de usuario o contaseña incorrecta.'
+            })
+        </script>
+        Nombre de usuario o contaseña incorrecta.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success" role="alert">
+        <script>
+            const Toast1 = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            })
+            Toast1.fire({
+                icon: 'success',
+                title: 'Se ha cerrado sesión correctamente!'
+            })
+        </script>
+        Se ha cerrado sesión correctamente!
+    </div>
+    <div th:if="${param.OK}" class="alert alert-success" role="alert">
+        <script>
+            const Toast2 = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            })
+            Toast2.fire({
+                icon: 'success',
+                title: 'Ha iniciado sesión correctamente!'
+            })
+        </script>
+        Se ha cerrado sesión correctamente!
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+body {
+    display: flex;
+    background: linear-gradient(90deg, rgba(118, 140, 150, 1) 0%, rgba(172, 196, 204, 1) 50%, rgba(180, 235, 240, 1) 100%);
+}
+
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+#content {
+    flex-grow: 1;
+    padding: 20px;
+    width: 100%;
+}
+
+.nav-link.active {
+    background-color: #e9ecef;
+}
+
+.container-nav {
+    width: 100%;
+    height: 50px;
+
+}
+
+.nav--link {
+    color: rgb(16, 9, 119);
+    font-size: large;
+    font-weight: 600;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #3268a7;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.card-1 {
+    min-height: 217px;
+    margin-top: 10px;
+}
+
+.card-2 {
+    display: flex;
+    overflow-y: auto;
+    min-height: 217px;
+    max-height: 220px;
+    margin-top: 10px;
+}
+
+.col-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.socialm {
+    font-size: 30px;
+}
+
+.tabla {
+    min-width: 100%;
+}
+
+.chat {
+    display: flex;
+    align-items: center;
+    min-width: 100%;
+}
+
+.chat-hora-user {
+    margin-left: auto;
+    font-size: 11px;
+}
+
+.chat-hora-admin {
+    margin-right: auto;
+    font-size: 11px;
+}
+
+.user-chat {
+    max-width: 50px;
+    border-radius: 50%;
+    
+}
+
+.card-chat {
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.derecha {
+    margin-left: auto !important;
+}
+
+.no-bold {
+    font-weight: normal;
+    ;
+}
+
+.align-left {
+    text-align: start !important;
+}
+
+.align-center {
+    text-align: center !important;
+}
+
+.edit{
+    color:rgb(0, 184, 0);
+}
+
+.delete{
+    color: red;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        display: none;
+    }
+
+    body {
+        flex-direction: column;
+    }
+}
+
+.movimiento {
+    font-family: "Playwrite DK Loopet", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 18px;
+}

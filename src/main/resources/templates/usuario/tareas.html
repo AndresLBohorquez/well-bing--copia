@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="~{layout/plantilla_user :: head(Usuario + ' - ' + Tareas)}"></head>
+
+
+
+<body>
+    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+        aria-controls="offcanvasMenu">
+        Menú
+    </button>
+
+    <head th:replace="~{layout/plantilla_user :: menus('', '', '', '', '', active)}"></head>
+
+
+
+    <div id="content">
+
+        <head th:replace="~{layout/plantilla_user :: nav}"></head>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-1 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h2>Tareas</h2>
+
+                        </div>
+                        <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                            <thead>
+                                <tr>
+                                    <th class="align-left">Fecha</th>
+                                    <th class="align-left">Nombre</th>
+                                    <th class="align-left">Producto</th>
+                                    <th class="align-center">Estado</th>
+                                    <th class="align-center">Descripción</th>
+                                    <th class="align-left">Imagen</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="tarea : ${listaTareas}">
+                                    <td class="align-left" th:text="${#temporals.format(tarea.fecha, 'MMMM dd, yyyy')}">
+                                        Fecha</th>
+                                    <td class="align-left" th:text="${tarea.nombre}">Nombre</td>
+                                    <td class="align-left" th:text="${tarea.producto.nombre}">Producto</td>
+                                    
+                                    <td class="align-left" th:if="${tarea.estadoTarea.nombre == 'Nueva'}">
+                                        <span class="badge text-bg-danger">Nueva</span>
+                                    </td>
+                                    <td class="align-left" th:if="${tarea.estadoTarea.nombre == 'Realizada'}">
+                                        <span class="badge text-bg-success">Realizada</span>
+                                    </td>
+                                    <td class="align-left" th:if="${tarea.estadoTarea.nombre == 'Vencida'}">
+                                        <span class="badge text-bg-dark">Vencida</span>
+                                    </td>
+                                    <td class="align-center" th:text="${tarea.producto.descripcion}">
+                                    </td>
+                                    <td class="align-left"><a
+                                        th:href="@{/images/productos/} + ${tarea.producto.imagen}"
+                                        target="_blank">Imagen</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+    <script src="../js/datatable.js"></script>
+
+</body>
+
+</html>

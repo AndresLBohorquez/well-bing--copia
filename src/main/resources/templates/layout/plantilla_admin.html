@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
+
+
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+
+    <!-- Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- ICONOS -->
+    <!-- Scripts Librería Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Datatables JS -->
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/admin-styles.css" />
+    <link rel="icon" type="image/jpg" href="/images/favicon.ico" />
+
+    <!-- SweetAlert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- JS -->
+    <script src="/js/logout.js"></script>
+    <title th:text="${titulo}">Admin</title>
+    
+    <!-- FONTS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playwrite+DK+Loopet:wght@100..400"
+        rel="stylesheet">
+</head>
+
+<!-- Sidebar -->
+<div th:fragment="sidebar(dashboard, usuarios, productos, publicaciones, pagos, equipo, activaciones, pqrs, email)"
+    class="bg-white" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom col-center">
+        <img class="logo" src="/images/logo_nobg.png" alt="" srcset=""><span class="movimiento">Movimiento
+            Altruista</span>
+    </div>
+    <div class="list-group list-group-flush my-3">
+        <a href="/admin" th:class="|list-group-item list-group-item-action bg-transparent second-text ${dashboard}|">
+            <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+
+        <a href="/admin/usuarios"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${usuarios}|">
+            <ion-icon class="me-2 icon" name="person"></ion-icon>Usuarios</a>
+
+        <a href="/admin/productos"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${productos}|">
+            <ion-icon class="me-2 icon" name="cart"></ion-icon>Productos</a>
+
+        <a href="/admin/publicaciones"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${publicaciones}|">
+            <ion-icon class="me-2 icon" name="id-card"></ion-icon>Publicaciones</a>
+
+        <a href="/admin/pagos" th:class="|list-group-item list-group-item-action bg-transparent second-text ${pagos}|">
+            <ion-icon class="me-2 icon" name="cash-outline"></ion-icon>Pagos</a>
+
+        <a href="/admin/equipo"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${equipo}|">
+            <ion-icon class="me-2 icon" name="people"></ion-icon>Equipo</a>
+
+        <a href="/admin/activaciones"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${activaciones}|">
+            <ion-icon class="me-2 icon" name="card"></ion-icon></ion-icon>Activaciones</a>
+
+        <a href="/admin/pqrs" th:class="|list-group-item list-group-item-action bg-transparent second-text ${pqrs}|">
+            <ion-icon class="me-2 icon" name="help-circle"></ion-icon>PQRS</a>
+
+        <a href="/admin/email" th:class="|list-group-item list-group-item-action bg-transparent second-text ${email}|">
+            <ion-icon class="me-2 icon" name="mail"></ion-icon>Email</a>
+
+        <a href="#" onclick="logout()"
+            class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+            <i class="fas fa-power-off me-2 "></i>Logout</a>
+    </div>
+</div>
+<!-- /#sidebar-wrapper -->
+
+<!-- Navbar -->
+<nav th:fragment="navbar(titulo)" class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+    <div class="d-flex align-items-center">
+        <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+        <h2 th:text="${titulo}" class="fs-2 m-0">Dashboard</h2>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user me-2"></i>[[${nombre} + ' ' + ${apellido}]]</a>
+
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div th:each="rol : *{roles}">
+
+                        <li th:if="${rol.nombre == 'Admin'}">
+                            <a class="dropdown-item"
+                                th:href="'/' + ${#strings.toLowerCase(rol.nombre)}">[[${rol.nombre}]]
+                            </a>
+                        </li>
+
+
+                        <li th:if="${rol.nombre != 'User'} and ${rol.nombre != 'Admin'}">
+                            <a class="dropdown-item"
+                                th:href="'/' + ${#strings.toLowerCase(rol.nombre)}">[[${rol.nombre}]]
+                            </a>
+
+                        </li>
+                    </div>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="/">Inicio</a></li>
+                    <li><a class="dropdown-item" href="/usuario">Perfil</a></li>
+                    <li><a class="dropdown-item" href="/usuario/pqrs">PQRS</a></li>
+                    <li><a class="dropdown-item" href="/usuario/publicaciones">Publicación</a></li>
+                    <li><a class="dropdown-item" href="/usuario/activaciones">Activación</a></li>
+                    <li><a class="dropdown-item" href="/usuario/equipo">Equipo</a></li>
+                    <li><a class="dropdown-item" href="/usuario/tareas">Tareas</a></li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#" onclick="logout()">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Cards -->
+<div th:fragment="cards" class="row g-3 my-2">
+    <div class="col-md-3">
+        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+            <div>
+                <h3 class="fs-2" th:text="${cantidadProductos}">720</h3>
+                <p class="fs-5">Productos</p>
+            </div>
+            <ion-icon class="fs-1 primary-text border rounded-full secondary-bg p-3" name="cart"></ion-icon>
+
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+            <div>
+                <h3 class="fs-2" th:text="${cantidadUsuarios}"></h3>
+                <p class="fs-5">Usuarios</p>
+            </div>
+            <ion-icon class="fs-1 primary-text border rounded-full secondary-bg p-3" name="person-sharp"></ion-icon>
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+            <div>
+                <h3 class="fs-2" th:text="${cantidadPublicaciones}">3899</h3>
+                <p class="fs-5">Publicaciones</p>
+            </div>
+            <ion-icon class="fs-1 primary-text border rounded-full secondary-bg p-3" name="id-card"></ion-icon>
+
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+            <div>
+                <h3 class="fs-2" th:text="${cantidadPqrs}">25</h3>
+                <p class="fs-5">PQRS</p>
+            </div>
+            <ion-icon class="fs-1 primary-text border rounded-full secondary-bg p-3" name="help-circle"></ion-icon>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="alertas">
+    <div th:if="${message}">
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'error',
+                title: '[[${message}]]'
+            })
+        </script>
+    </div>
+
+    <div th:if="${messageOK}">
+        <script>
+            const Toast1 = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            })
+            Toast1.fire({
+                icon: 'success',
+                title: '[[${messageOK}]]'
+            })
+        </script>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla_admin :: head(Admin + ' - ' + Usuarios)}">
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+
+        <div
+            th:replace="~{layout/plantilla_admin :: sidebar(fw-bold, active, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold)}">
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{layout/plantilla_admin :: navbar(Usuarios)}"></nav>
+
+            <div class="container-fluid px-4">
+
+                <div class="row my-4">
+                    <h3 class="fs-4 mb-3">Editar Usuario</h3>
+                    <div class="col">
+                        <div class="card">
+                            <div class="mt-3 ms-3 me-3 mb-3">
+                                <form class="row g-3 needs-validation" novalidate
+                                    th:action="@{/admin/editar-usuario/{id}(id=${user.id})}" th:object="${user}"
+                                    method="post" id="userForm">
+                                    <div class="col-md-6">
+                                        <label for="validationNombres" class="form-label">Nombres</label>
+                                        <input th:field="*{nombre}" type="text" class="form-control"
+                                            id="validationNombres">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese su nombre.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationApellidos" class="form-label">Apellidos</label>
+                                        <input th:field="*{apellido}" type="text" class="form-control"
+                                            id="validationApellidos">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese su apellido.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationCorreo" class="form-label">Correo</label>
+                                        <input th:field="*{email}" type="email" class="form-control"
+                                            id="validationCorreo">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese un correo válido.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationCelular" class="form-label">Celular</label>
+                                        <input th:field="*{celular}" type="text" class="form-control"
+                                            id="validationCelular">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese su número de celular.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationPassword" class="form-label">Contraseña</label>
+                                        <input th:field="*{password}" type="password" class="form-control"
+                                            id="validationPassword">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese una contraseña válida (mínimo 6
+                                            caracteres).</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationUsername" class="form-label">Nombre de usuario</label>
+                                        <input th:field="*{username}" type="text" class="form-control"
+                                            id="validationUsername">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese un nombre de usuario válido
+                                            (mínimo 6 caracteres).</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Fecha Registro</label>
+                                        <input
+                                            th:placeholder="${#temporals.format(user.fechaRegistro, 'MMMM dd, yyyy')}"
+                                            type="text" class="form-control" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationCodigo" class="form-label">Código de usuario</label>
+                                        <input th:field="*{codigoUsuario}" type="text" class="form-control"
+                                            id="validationCodigo">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese un código de usuario válido
+                                            (exactamente 7 caracteres).</div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="validationDireccion" class="form-label">Dirección</label>
+                                        <input th:field="*{direccion}" type="text" class="form-control"
+                                            id="validationDireccion">
+                                        <div class="valid-feedback">OK!</div>
+                                        <div class="invalid-feedback">Por favor, ingrese su dirección.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <fieldset>
+                                            <legend>Roles:</legend>
+                                            <div th:each="rol : ${listaRoles}">
+                                                <input type="checkbox" th:field="*{roles}" th:value="${rol.id}"
+                                                    th:checked="${#lists.contains(user.roles, rol)}">
+                                                <label th:for="${'role_' + rol.id}" th:text="${rol.nombre}"></label>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check form-switch">
+                                            <label class="tooltip-container switch">
+                                                <legend class="mb-4">Activo: <ion-icon name="help-circle-outline"
+                                                        style="color: red;"></ion-icon><span class="tooltip-text"
+                                                        id="tooltip-visible">Al desactivar esta opción
+                                                        ("Activo") el usuario quedará baneado del sistema, pero se
+                                                        podrá volver a activar</span>
+                                                </legend>
+
+                                                <input th:field="*{enable}" type="checkbox" class="checkbox" >
+                                                <div class="slider"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check form-switch ">
+                                            <label class="tooltip-container switch">
+                                                <legend class="mb-4">Visible: <ion-icon name="help-circle-outline"
+                                                        style="color: red;"></ion-icon><span class="tooltip-text"
+                                                        id="tooltip-visible">Al desactivar esta opción
+                                                        ("Visible") el usuario será eliminado y no se podrá
+                                                        recuperar</span>
+                                                </legend>
+
+                                                <input th:field="*{visible}" type="checkbox" class="checkbox">
+                                                <div class="slider"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button class="btn btn-primary" type="submit">Enviar</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="/js/datatable.js"></script>
+    <script src="/js/user-edit.js"></script>
+
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+
+</body>
+
+</html>

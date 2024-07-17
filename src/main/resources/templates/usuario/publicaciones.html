@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="~{layout/plantilla_user :: head(Usuario + ' - ' + Publicaciones)}"></head>
+
+
+
+<body>
+    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+        aria-controls="offcanvasMenu">
+        Menú
+    </button>
+
+    <head th:replace="~{layout/plantilla_user :: menus('', '', active, '', '', '')}"></head>
+
+
+
+    <div id="content">
+
+        <head th:replace="~{layout/plantilla_user :: nav}"></head>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-1 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h2>Publicaciones</h2>
+                            <!-- Si el estado es 'Activado' o 'Pre Activado' y hay al menos una tarea en listaTareas -->
+                            <h2 th:if="${(estado == 'Activado' || estado == 'Pre Activado') && listaTareas.size() > 0}"
+                                class="derecha">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#crearPublicacionModal">
+                                    <ion-icon name="add-circle-outline"></ion-icon>
+                                </a>
+                            </h2>
+                            <!-- Si el estado es 'Inactivo' o 'Rechazada' o no hay tareas en listaTareas -->
+                            <h2 th:if="${estado == 'Inactivo' || estado == 'Rechazada' || listaTareas.size() == 0}"
+                                class="derecha"><ion-icon name="add-circle-outline"></ion-icon>
+                            </h2>
+                        </div>
+                        <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                            <thead>
+                                <tr>
+                                    <th class="align-left">Fecha</th>
+                                    <th class="align-center">Link</th>
+                                    <th class="align-center">Estado</th>
+                                    <th class="align-center">Soporte</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="publicacion : ${listaPublicaciones}">
+                                    <td class="align-left"
+                                        th:text="${#temporals.format(publicacion.fecha, 'MMMM dd, yyyy HH:mm:ss')}">
+                                    </td>
+                                    <td>
+                                        <a th:href="${publicacion.link}"
+                                            th:text="${publicacion.link.length() > 30 ? publicacion.link.substring(0, 30) + '...' : publicacion.link}"
+                                            target="_blank">
+                                        </a>
+
+                                    </td>
+                                    <td class="align-center" th:if="${publicacion.estadoPublicacion.nombre == 'Aprobada'}"><span
+                                            class="badge rounded-pill text-bg-success">Aprobada</span></td>
+                                    <td class="align-center" th:if="${publicacion.estadoPublicacion.nombre == 'Pendiente'}"><span
+                                            class="badge rounded-pill text-bg-warning">Pendiente</span></td>
+                                    <td class="align-center" th:if="${publicacion.estadoPublicacion.nombre == 'Rechazada'}"><span
+                                            class="badge rounded-pill text-bg-danger">Rechazada</span></td>
+                                    <td class="align-center"><a th:text="Imagen"
+                                            th:href="@{/images/publicaciones/} + ${publicacion.soporte}"
+                                            target="_blank"></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal crearPublicación-->
+    <div class="modal fade" id="crearPublicacionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registrar Publicación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/usuario/publicaciones}" th:object="${publicacion}" method="post"
+                        enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Tarea</label>
+                            <select class="form-select" th:field="*{tarea}">
+                                <option th:each="tar : ${listaTareas}" th:value="${tar.id}" th:text="${tar.nombre}">Opción
+                                </option>
+                            </select>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Link</label>
+                            <input type="text" class="form-control" th:field="*{link}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Comprobante</label>
+                            <input class="form-control" type="file" id="imagen" name="imagen">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+    <script src="../js/datatable.js"></script>
+
+</body>
+
+</html>

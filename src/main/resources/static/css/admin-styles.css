@@ -1,0 +1,261 @@
+:root {
+    --main-bg-color: hsl(158, 100%, 31%);
+    --main-text-color: #115493;
+    --second-text-color: #7e89a1;
+    --second-bg-color: #c1efde;
+}
+
+.primary-text {
+    color: var(--main-text-color);
+}
+
+.second-text {
+    color: var(--second-text-color);
+}
+
+.primary-bg {
+    background-color: var(--main-bg-color);
+}
+
+.secondary-bg {
+    background-color: var(--second-bg-color);
+}
+
+.rounded-full {
+    border-radius: 100%;
+}
+
+.logo {
+    max-width: 60px;
+    max-height: 60px;
+}
+
+.img-wb {
+    max-height: 40px;
+}
+
+.col-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat {
+    display: flex;
+    align-items: center;
+    min-width: 100%;
+}
+
+.chat-hora-user {
+    margin-left: auto;
+    font-size: 11px;
+}
+
+.chat-hora-admin {
+    margin-right: auto;
+    font-size: 11px;
+}
+
+.user-chat {
+    max-width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.card-chat {
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+.img-prod {
+    max-width: 300px;
+    max-height: 300px;
+
+}
+
+.col-img {
+    display: flex;
+    justify-content: center;
+}
+
+#wrapper {
+    overflow-x: hidden;
+    background: linear-gradient(90deg, rgba(180, 235, 240, 1) 0%, rgba(203, 247, 228, 1) 50%, rgba(177, 205, 204, 1) 100%);
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#menu-toggle {
+    cursor: pointer;
+}
+
+.list-group-item {
+    border: none;
+    padding: 20px 30px;
+}
+
+.list-group-item.active {
+    background-color: transparent;
+    color: var(--main-text-color);
+    font-weight: bold;
+    border: none;
+}
+
+.agregar-usuario {
+    position: absolute;
+    right: 0 !important;
+    margin-right: 30px;
+}
+
+.text-14 {
+    font-size: 14px;
+}
+
+.icon {
+    font-size: 18px !important;
+}
+
+.tabla {
+    min-width: 100%;
+}
+
+.align-left {
+    text-align: start !important;
+}
+
+.align-center {
+    text-align: center !important;
+}
+
+.img-producto {
+    max-width: 350px;
+    max-height: 300px;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+
+    .card-chat {
+        height: 550px;
+        overflow-y: auto;
+    }
+}
+
+.checkbox {
+    display: none;
+}
+
+.slider {
+    width: 60px;
+    height: 30px;
+    background-color: lightgray;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border: 4px solid transparent;
+    transition: .3s;
+    box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+}
+
+.slider::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    transform: translateX(-30px);
+    border-radius: 20px;
+    transition: .3s;
+    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.checkbox:checked~.slider::before {
+    transform: translateX(30px);
+    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.checkbox:checked~.slider {
+    background-color: #2196F3;
+}
+
+.checkbox:active~.slider::before {
+    transform: translate(0);
+}
+
+/* Estilos para el tooltip */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 16px;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.fecha-antigua {
+    color: red;
+}
+
+.movimiento {
+    font-family: "Playwrite DK Loopet", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 18px;
+}

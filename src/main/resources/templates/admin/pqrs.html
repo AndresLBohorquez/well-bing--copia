@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla_admin :: head(Admin + ' - ' + PQRS)}">
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+
+        <div
+            th:replace="~{layout/plantilla_admin :: sidebar(fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, active, fw-bold)}">
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{layout/plantilla_admin :: navbar(PQRS)}"></nav>
+
+            <div class="container-fluid px-4">
+
+                <div th:replace="~{layout/plantilla_admin :: cards}"></div>
+
+                <div class="row my-3 text-14">
+                    <h3 class="fs-4 mb-1">PQRS </h3>
+                    <div class="col">
+                        <div class="card shadow p-3 mb-2 bg-body-tertiary rounded">
+                            <div class="mt-3 ms-3 me-3 mb-3">
+                                <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Fecha</th>
+                                            <th>Usuario</th>
+                                            <th>Tipo</th>
+                                            <th>Estado</th>
+                                            <th>Actualizada</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="pqrs : ${listaPqrs}">
+                                            <td><a th:href="@{/admin/responder-pqrs/{id}(id=${pqrs.id})}"
+                                                    th:text="${pqrs.descripcion}"></a></td>
+                                            <td th:text="${#temporals.format(pqrs.fechaRegistro, 'MMMM dd, yyyy')}">
+                                            </td>
+                                            <td ><a th:href="@{/admin/detalle-usuario/{id}(id=${pqrs.usuario.id})}" th:text="${pqrs.usuario.username}"></a></td>
+                                            <td th:text="${pqrs.tipoPqrs.nombre}"></td>
+                                            <td th:text="${pqrs.estadoPqrs.nombre}"></td>
+                                            <td
+                                                th:text="${#temporals.format(pqrs.fechaActualizacion, 'MMMM dd, yyyy')}">
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <a th:href="@{/admin/pqrs/abrir/{id}(id=${pqrs.id})}" class="col-1"><ion-icon name="mail-open" style="color:green"></ion-icon></a>
+                                                    <a th:href="@{/admin/pqrs/eliminar/{id}(id=${pqrs.id})}" class="col-1"><ion-icon name="trash" style="color:red"></ion-icon></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+    <script src="../js/datatable.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+
+</body>
+
+</html>

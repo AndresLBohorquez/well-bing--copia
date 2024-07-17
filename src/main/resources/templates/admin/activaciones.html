@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla_admin :: head(Admin + ' - ' + Activaciones)}">
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+
+        <div
+            th:replace="~{layout/plantilla_admin :: sidebar(fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, active, fw-bold, fw-bold)}">
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{layout/plantilla_admin :: navbar(Activaciones)}"></nav>
+
+            <div class="container-fluid px-4">
+
+                <div th:replace="~{layout/plantilla_admin :: cards}"></div>
+
+                <div class="row my-3 text-14">
+                    <h3 class="fs-4 mb-1">Activaciones </h3>
+                    <div class="col">
+                        <div class="card shadow p-3 mb-2 bg-body-tertiary rounded">
+                            <div class="mt-3 ms-3 me-3 mb-3">
+                                <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Vence</th>
+                                            <th class="align-center">Valor</th>
+                                            <th class="align-center">Comprobante</th>
+                                            <th class="align-center">Usuario</th>
+                                            <th class="align-center">Nuevo</th>
+                                            <th class="align-center">Estado</th>
+                                            <th class="align-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="activacion : ${listaActivaciones}">
+                                            <td th:text="${#temporals.format(activacion.fecha, 'MMMM dd, yyyy')}"></td>
+                                            <td th:text="${#temporals.format(activacion.fechaFin, 'MMMM dd, yyyy')}">
+                                            </td>
+                                            <td class="align-center"
+                                                th:text="'$ ' + ${#numbers.formatDecimal(activacion.valor, 0 , 'COMMA', 0, 'POINT')}">
+                                            </td>
+
+                                            <td class="align-center"><a th:text="Comprobante"
+                                                    th:href="@{/images/activaciones/} + ${activacion.comprobante}"
+                                                    target="_blank"></a></td>
+
+                                            <td class="align-center"><a
+                                                    th:href="@{/admin/detalle-usuario/{id}(id=${activacion.usuario.id})}"
+                                                    th:text="${activacion.usuario.username}"></a></td>
+
+                                            <td th:if="${activacion.nueva}"><span class="badge rounded-pill bg-success">Nuevo</span></td>
+                                            <td th:if="${!activacion.nueva}"><span class="badge rounded-pill bg-primary">Antiguo</span></td>
+
+                                            <td class="align-center"
+                                                th:if="${activacion.estadoActivacion.nombre == 'Pre Activado'}">
+                                                <span class="badge rounded-pill text-bg-primary">Pre Activado</span>
+                                            </td>
+                                            <td class="align-center"
+                                                th:if="${activacion.estadoActivacion.nombre == 'Activado'}">
+                                                <span class="badge rounded-pill text-bg-success">Activado</span>
+                                            </td>
+                                            <td class="align-center"
+                                                th:if="${activacion.estadoActivacion.nombre == 'Inactivo'}">
+                                                <span class="badge rounded-pill text-bg-warning">Inactivo</span>
+                                            </td>
+                                            <td class="align-center"
+                                                th:if="${activacion.estadoActivacion.nombre == 'Rechazada'}">
+                                                <span class="badge rounded-pill text-bg-danger">Rechazada</span>
+                                            </td>
+                                            <td class="align-center"
+                                                th:if="${activacion.estadoActivacion.nombre == 'Validado'}">
+                                                <span class="badge rounded-pill text-bg-info">Validado</span>
+                                            </td>
+
+                                            <td>
+                                                <div class="row">
+                                                    <a th:href="@{/admin/activacion/preactivar/{id}(id=${activacion.id})}"
+                                                        class="col-1" style="color:blue;"><ion-icon
+                                                            name="checkmark"></ion-icon></a>
+                                                    <a th:href="@{/admin/activacion/activar/{id}(id=${activacion.id})}"
+                                                        class="col-1" style="color:green"><ion-icon
+                                                            name="thumbs-up"></ion-icon></a>
+                                                    <a th:href="@{/admin/activacion/desactivar/{id}(id=${activacion.id})}"
+                                                        class="col-1" style="color:orange"><ion-icon
+                                                            name="information-circle-outline"></ion-icon></a>
+                                                    <a th:href="@{/admin/activacion/rechazar/{id}(id=${activacion.id})}"
+                                                        class="col-1" style="color:red"><ion-icon
+                                                            name="thumbs-down"></ion-icon></a>
+                                                    <a th:if="${activacion.nueva}" th:href="@{/admin/activacion/validar/{id}(id=${activacion.id})}"
+                                                        class="col-1" style="color:green"><ion-icon name="checkbox-outline"></ion-icon></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+    <script src="../js/datatable.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+
+</body>
+
+</html>

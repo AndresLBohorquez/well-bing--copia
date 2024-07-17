@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+</head>
+
+<body>
+    <h1>Envio de email</h1>
+
+    <form th:action="@{/email}" method="post" th:object="${email}" class="form login">
+        <div class="form_field">
+            <label><i class="fa fa-user" style="color: #606468;"></i></label>
+            <input th:field="*{destinatario}" type="text" name="destinatario" class="form_input"
+                placeholder="Destinatario" required>
+        </div>
+        <div class="form_field">
+            <label><i class="fa fa-user" style="color: #606468;"></i></label>
+            <input th:field="*{asunto}" type="text" name="asunto" class="form_input" placeholder="Asunto" required>
+        </div>
+
+        <div class="form_field">
+            <label><i class="fa fa-user" style="color: #606468;"></i></label>
+            <input th:field="*{mensaje}" type="text" name="mensaje" class="form_input" placeholder="Mensaje" required>
+        </div>
+
+        <div class="form_field">
+            <button class="submitButton" type="submit">Enviar</button>
+        </div>
+    </form>
+
+
+</body>
+
+</html>

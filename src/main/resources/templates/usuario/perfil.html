@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="~{layout/plantilla_user :: head(Usuario + ' - ' + Perfil)}"></head>
+
+
+
+<body>
+    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+        aria-controls="offcanvasMenu">
+        Menú
+    </button>
+
+    <head th:replace="~{layout/plantilla_user :: menus(active, '', '', '', '', '')}"></head>
+
+
+
+    <div id="content">
+
+        <head th:replace="~{layout/plantilla_user :: nav}"></head>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-1 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body d-flex">
+                        <h2>Perfil de Usuario</h2>
+                        <h2 th:if="${estado == 'Activado' || estado == 'Pre Activado'}" class="derecha"><a
+                                th:href="@{/usuario/editar-usuario/} + ${usuLog.id}"><ion-icon
+                                    name="create-outline"></ion-icon></a>
+                        </h2>
+                        <h2 th:if="${estado == 'Inactivo' || estado == 'Rechazada'}" class="derecha">
+                            <ion-icon name="create-outline"></ion-icon>
+                        </h2>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p th:text="'Nombre: ' + ${usuLog.nombre} + ' ' + ${usuLog.apellido}"></p>
+                            <p th:text="'Email: ' + ${usuLog.email}"></p>
+                            <p th:text="'Celular: ' + ${usuLog.celular}"></p>
+                            <p th:text="'Dirección: ' + ${usuLog.direccion}"></p>
+                            <p th:text="'Código de usuario: ' + ${usuLog.codigoUsuario}"></p>
+                            <p th:text="'Nombre de usuario: ' + ${usuLog.username}"></p>
+                            <p
+                                th:text="'Usuario desde: ' + ${#temporals.format(usuLog.fechaRegistro, 'MMMM dd, yyyy') }">
+                            </p>
+
+                            <p th:if="${estado == 'Pre Activado' }">Estado: <span class="badge rounded-pill text-bg-primary">Pre
+                                    Activado</span></p>
+                            <p th:if="${estado == 'Activado' }">Estado: <span
+                                    class="badge rounded-pill text-bg-success">Activo</span></p>
+                            <p th:if="${estado == 'Inactivo' }">Estado: <span
+                                    class="badge rounded-pill text-bg-danger">Inactivo</span></p>
+                            <p th:if="${estado == 'Rechazada' }">Estado: <span
+                                    class="badge rounded-pill text-bg-dark">Rechazada</span></p>
+
+
+                        </div>
+                        <div th:if="${roles.size > 1} " class="col">
+                            <h5 class="mb-3">Roles:</h5>
+                            <div th:each="rol : ${roles}">
+                                <p th:text="${rol.nombre}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <div class="card card-2 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <h4 class="col-center">Activación <span class="derecha mt-2"><a href="" data-bs-toggle="modal"
+                                    data-bs-target="#activacionModal"><ion-icon
+                                        name="add-circle-outline"></ion-icon></a></span></h4>
+                        <h6 th:if="${ultimaActivacion != null}">Activo hasta: </h6>
+                        <h6 th:if="${ultimaActivacion != null}"
+                            th:text="${#temporals.format(ultimaActivacion.fechaFin, 'MMMM dd, yyyy')}"></h6>
+                        <h6 th:if="${ultimaActivacion != null}"
+                            th:text="'Periodos Activo: ' +${ListaActivaciones.size}"></h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-4 ">
+                <div class="card card-2 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <h4 class="mb-3 col-center">Medios de pago
+                            <span th:if="${estado == 'Activado' || estado == 'Pre Activado'}" class="derecha mt-2"><a
+                                    href="" data-bs-toggle="modal" data-bs-target="#mediosPagoModal">
+                                    <ion-icon name="add-circle-outline"></ion-icon></a>
+                            </span>
+                            <span th:if="${estado == 'Inactivo' || estado == 'Rechazada'}" class="derecha mt-2">
+                                <ion-icon name="add-circle-outline"></ion-icon>
+                            </span>
+                        </h4>
+                        <div th:each="mPago : ${mediosPago}">
+                            <p th:text="${mPago.nombre} + ' - ' + ${mPago.numero}"></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-4">
+                <div class="card card-2 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <h4 class="col-center">Redes Sociales
+                            <span th:if="${estado == 'Activado' || estado == 'Pre Activado'}" class="derecha mt-2">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#redesUsuarioModal"><ion-icon
+                                        name="add-circle-outline"></ion-icon></a>
+                            </span>
+                            <span th:if="${estado == 'Inactivo' || estado == 'Rechazada'}" class="derecha mt-2">
+                                <ion-icon name="add-circle-outline"></ion-icon>
+                            </span>
+                        </h4>
+
+                        <div class="d-flex col-center my-4">
+                            <div th:each="rUsuario : ${redesUsuario}">
+                                <a class="mx-1 socialm" th:if="${rUsuario.redes.nombre == 'Facebook'}"
+                                    th:href="${rUsuario.link}" target="_blank">
+                                    <ion-icon name="logo-facebook"></ion-icon>
+                                </a>
+                                <a class="mx-1 socialm" th:if="${rUsuario.redes.nombre == 'Instagram'}"
+                                    th:href="${rUsuario.link}" target="_blank">
+                                    <ion-icon name="logo-instagram"></ion-icon>
+                                </a>
+                                <a class="mx-1 socialm" th:if="${rUsuario.redes.nombre == 'X'}"
+                                    th:href="${rUsuario.link}" target="_blank">
+                                    <ion-icon name="logo-twitter"></ion-icon>
+                                </a>
+                                <a class="mx-1 socialm" th:if="${rUsuario.redes.nombre == 'TikTok'}"
+                                    th:href="${rUsuario.link}" target="_blank">
+                                    <ion-icon name="logo-tiktok"></ion-icon>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal mediosPago-->
+    <div class="modal fade" id="mediosPagoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Medio de pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/usuario}" th:object="${mpago}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Entidad</label>
+                            <input type="text" class="form-control" th:field="*{nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Número</label>
+                            <input type="text" class="form-control" th:field="*{numero}" required>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" name="action"
+                                value="mediosPago">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal redesUsuario-->
+    <div class="modal fade" id="redesUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Red Social</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/usuario}" th:object="${rsUsuario}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Red Social</label>
+                            <select class="form-select" th:field="*{redes}">
+                                <option th:each="red : ${redes}" th:value="${red.id}" th:text="${red.nombre}">Opción
+                                </option>
+                            </select>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Link</label>
+                            <input type="text" class="form-control" th:field="*{link}" required>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" name="action"
+                                value="redesUsuario">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Activacion -->
+    <div class="modal fade" id="activacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crear Activación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/usuario}" th:object="${activacion}" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Valor</label>
+                            <input type="text" class="form-control" th:field="*{valor}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Comprobante</label>
+                            <input class="form-control" type="file" id="imagen" name="imagen">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" name="action"
+                                value="activacion">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+
+</body>
+
+</html>

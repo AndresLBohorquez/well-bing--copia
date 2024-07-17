@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="~{layout/plantilla_user :: head(Usuario + ' - ' + Equipo)}"></head>
+
+
+
+<body>
+    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+        aria-controls="offcanvasMenu">
+        Menú
+    </button>
+
+    <head th:replace="~{layout/plantilla_user :: menus('', '', '', '', active, '')}"></head>
+
+
+
+    <div id="content">
+
+        <head th:replace="~{layout/plantilla_user :: nav}"></head>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-1 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h2>Equipo</h2>
+                            <h2 th:if="${estado == 'Activado' || estado == 'Pre Activado'}" class="derecha"><a href=""
+                                    data-bs-toggle="modal" data-bs-target="#agregarHijoModal"><ion-icon
+                                        name="add-circle-outline"></ion-icon></a>
+                            </h2>
+                            <h2 th:if="${estado == 'Inactivo' || estado == 'Rechazada'}" class="derecha"><ion-icon
+                                    name="add-circle-outline"></ion-icon>
+                            </h2>
+                        </div>
+                        <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                            <thead>
+                                <tr>
+                                    <th class="align-left">Nombre</th>
+                                    <th class="align-center">Apellido</th>
+                                    <th class="align-center">Celular</th>
+                                    <th class="align-center">Estado Usuario</th>
+                                    <th class="align-center">Desde</th>
+                                    <th class="align-center">Estado Equipo</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="equipo : ${listaEquipo}">
+                                    <td class="align-left" th:text="${equipo.idHijo.nombre}"></th>
+                                    <td class="align-center" th:text="${equipo.idHijo.apellido}">Television</td>
+                                    <td class="align-center" th:text="${equipo.idHijo.celular}">Jonny</td>
+                                    <td class="align-center" th:if="${equipo.idHijo.inactivo == 0}">
+                                        <span class="badge rounded-pill text-bg-success">Activo</span>
+                                    </td>
+                                    <td class="align-center" th:if="${equipo.idHijo.inactivo > 0}">
+                                        <span class="badge rounded-pill text-bg-danger">Inactivo</span>
+                                    </td>
+                                    <td class="align-center" th:text="${#temporals.format(equipo.idHijo.fechaRegistro, 'MMMM dd, yyyy')}"></td>
+
+                                    <td class="align-center" th:if="${equipo.estadoEquipo.nombre == 'Pendiente'}"><span class="badge rounded-pill bg-warning">Pendiente</span></td>
+                                    <td class="align-center" th:if="${equipo.estadoEquipo.nombre == 'Aprobado'}"><span class="badge rounded-pill bg-success">Aprobado</span></td>
+                                    <td class="align-center" th:if="${equipo.estadoEquipo.nombre == 'Rechazado'}"><span class="badge rounded-pill bg-danger">Rechazado</span></td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal agregarHijo-->
+    <div class="modal fade" id="agregarHijoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Equipo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/usuario/equipo}" th:object="${user}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Código de Usuario</label>
+                            <input type="text" class="form-control" th:field="*{codigoUsuario}" required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+    <script src="../js/datatable.js"></script>
+
+</body>
+
+</html>

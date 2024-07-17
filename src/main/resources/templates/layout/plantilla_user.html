@@ -1,0 +1,204 @@
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Perfil de Usuario</title>
+
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+
+    <!-- ICONOS -->
+    <!-- Scripts Librería Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Datatables JS -->
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="/css/user-styles.css">
+    <link rel="icon" type="image/jpg" href="/images/favicon.ico" />
+    <script src="/js/logout.js"></script>
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+DK+Loopet:wght@100..400" rel="stylesheet">
+</head>
+
+
+<div th:fragment="menus(perfil, pqrs, publicaciones, activaciones, equipo, tareas)">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title movimiento" id="offcanvasMenuLabel">Movimiento Altruista</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="/usuario" th:class="|nav-link ${perfil}|">Perfil</a>
+                </li>
+                <li>
+                    <a href="/usuario/pqrs" th:class="|nav-link ${pqrs}|">PQRS</a>
+                </li>
+                <li>
+                    <a href="/usuario/publicaciones" th:class="|nav-link ${publicaciones}|">Publicaciones</a>
+                </li>
+                <li>
+                    <a href="/usuario/activaciones" th:class="|nav-link ${activaciones}|">Activaciones</a>
+                </li>
+                <li>
+                    <a href="/usuario/equipo" th:class="|nav-link ${equipo}|">Equipo</a>
+                </li>
+                <li>
+                    <a href="/usuario/tareas" th:class="|nav-link ${tareas}|">Tareas</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" onclick="logout()">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="sidebar" class="d-none d-md-block p-3">
+        <h4 class="movimiento">Movimiento Altruista</h4>
+        <ul class="nav nav-pills flex-column mb-auto mt-4">
+            <li class="nav-item">
+                <a href="/usuario" th:class="|nav-link ${perfil}|">Perfil</a>
+            </li>
+            <li class="nav-item mt-3">
+                <a href="/usuario/pqrs" th:class="|nav-link ${pqrs}|">PQRS</a>
+            </li>
+            <li class="nav-item mt-3">
+                <a href="/usuario/publicaciones" th:class="|nav-link ${publicaciones}|">Publicaciones</a>
+            </li>
+            <li class="nav-item mt-3">
+                <a href="/usuario/activaciones" th:class="|nav-link ${activaciones}|">Activaciones</a>
+            </li>
+            <li class="nav-item mt-3">
+                <a href="/usuario/equipo" th:class="|nav-link ${equipo}|">Equipo</a>
+            </li>
+            <li class="nav-item mt-3 position-relative">
+                <a href="/usuario/tareas" th:class="|nav-link ${tareas}|">Tareas</a>
+
+                <span th:if="${tareasNuevas != null && tareasNuevas.size() > 0}" th:text="${tareasNuevas.size()}"
+                    class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">+99</span>
+            </li>
+            <li class="nav-item mt-3">
+                <a href="#" class="nav-link text-danger" onclick="logout()">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light w-100">
+    <div class="container-fluid">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav--link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav--link" href="/productos">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav--link" href="/nosotros">Nosotros</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/images/user.png" alt="Usuario" class="profile-image me-2">
+                        [[${nombre} + ' ' + ${apellido}]]
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <div th:each="rol : *{roles}">
+
+                            <li th:if="${rol.nombre == 'Admin'}">
+                                <a class="dropdown-item"
+                                    th:href="'/' + ${#strings.toLowerCase(rol.nombre)}">[[${rol.nombre}]]
+                                </a>
+                            </li>
+
+
+                            <li th:if="${rol.nombre != 'User'} and ${rol.nombre != 'Admin'}">
+                                <a class="dropdown-item" th:href="${#strings.toLowerCase(rol.nombre)}">[[${rol.nombre}]]
+                                </a>
+
+                            </li>
+
+                        </div>
+
+                        <li th:if="${roles.size > 1 }">
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/">Inicio</a></li>
+                        <li><a class="dropdown-item" href="/usuario">Perfil</a></li>
+                        <li><a class="dropdown-item" href="/usuario/pqrs">PQRS</a></li>
+                        <li><a class="dropdown-item" href="/usuario/publicaciones">Publicación</a></li>
+                        <li><a class="dropdown-item" href="/usuario/activaciones">Activación</a></li>
+                        <li><a class="dropdown-item" href="/usuario/equipo">Equipo</a></li>
+                        <li><a class="dropdown-item" href="/usuario/tareas">Tareas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div th:fragment="alertas">
+    <div th:if="${message}">
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'error',
+                title: '[[${message}]]'
+            })
+        </script>
+    </div>
+
+    <div th:if="${messageOK}">
+        <script>
+            const Toast1 = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            })
+            Toast1.fire({
+                icon: 'success',
+                title: '[[${messageOK}]]'
+            })
+        </script>
+    </div>
+</div>

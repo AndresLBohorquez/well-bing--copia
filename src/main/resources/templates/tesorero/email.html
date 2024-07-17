@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla_admin :: head(Tesorero + ' - ' + Email)}">
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+
+        <div th:replace="~{layout/plantilla_tesorero :: sidebar(fw-bold, fw-bold, fw-bold, fw-bold, active)}">
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{layout/plantilla_admin :: navbar(Email)}"></nav>
+
+            <div class="container-fluid px-4">
+
+                <div class="row my-3">
+                    <h3 class="fs-4 mb-1">Email </h3>
+
+                </div>
+                <div class="row mx-auto">
+
+                </div>
+                <div class="card shadow mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <form action="">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Para: </span>
+                                    <input type="text" class="form-control" placeholder="Para" aria-label="Username"
+                                        aria-describedby="basic-addon1">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Asunto: </span>
+                                    <input type="text" class="form-control" placeholder="Asunto" aria-label="Username"
+                                        aria-describedby="basic-addon1">
+                                </div>
+
+                                <div class="mb-2 mt-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Mensaje: </label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                        rows="17"></textarea>
+                                </div>
+                                <div class="col-center">
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-outline-success col-sm-5 me-3 mt-2">Enviar</button>
+                                        <button type="submit" class="btn btn-outline-success col-sm-5 me-3 mt-2">Enviar a todos
+                                            los
+                                            usuarios</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="../js/datatable.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+
+</body>
+
+</html>

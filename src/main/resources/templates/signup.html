@@ -1,0 +1,56 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla :: head(Registrarse, login)}"></head>
+
+<header th:replace="~{layout/plantilla :: header('','','',active,'')}"></header>
+
+<body class="align body-signup">
+    <div class="grid">
+        <form th:action="@{/signup}" th:object="${user}" method="POST" class="form login">
+            <input th:field="*{id}" type="text" name="id" class="form_input" placeholder="id" style="display: none;">
+            <div class="form_field">
+                <label><i class="fa fa-user" style="color: #606468;"></i></label>
+                <input th:field="*{nombre}" type="text" name="name" class="form_input" placeholder="Nombres" required>
+            </div>
+            <div class="form_field">
+                <label><i class="fa fa-user" style="color: #606468;"></i></label>
+                <input th:field="*{apellido}" type="text" name="last_name" class="form_input" placeholder="Apellidos"
+                    required>
+            </div>
+            <div class="form_field">
+                <label><i class="fa fa-mobile-screen" style="color: #606468;"></i></label>
+                <input th:field="*{celular}" type="number" name="celphone" class="form_input" placeholder="Celular"
+                    required>
+            </div>
+            <div class="form_field">
+                <label><i class="fa fa-at" style="color: #606468;"></i></label>
+                <input th:field="*{email}" type="email" name="email" class="form_input" placeholder="Correo" required>
+            </div>
+            <div class="form_field">
+                <label><i class="fa fa-user" style="color: #606468;"></i></label>
+                <input th:field="*{username}" type="text" name="username" class="form_input"
+                    placeholder="Nombre de usuario" required>
+            </div>
+            <div class="form_field">
+                <label><i class="fa-solid fa-location-dot" style="color: #606468;"></i></label>
+                <input th:field="*{direccion}" type="text" name="direccion" class="form_input" placeholder="Dirección"
+                    required>
+            </div>
+            
+            <div class="form_field">
+                <label><i class="fa fa-lock" style="color: #606468;"></i></label>
+                <input th:field="*{password}" type="password" name="password" class="form_input"
+                    placeholder="Contraseña" required>
+            </div>
+            <div class="form_field">
+                <button class="submitButton" type="submit">Registrar</button>
+            </div>
+        </form>
+        <p class="text--center">Ya eres miembro? <a class="link" href="/login">Iniciar Sesión</a></p>
+    </div>
+
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="~{layout/plantilla_user :: head(Usuario + ' - ' + PQRS)}"></head>
+
+
+
+<body>
+    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+        aria-controls="offcanvasMenu">
+        Menú
+    </button>
+
+    <head th:replace="~{layout/plantilla_user :: menus('', active, '', '', '', '')}"></head>
+
+
+
+    <div id="content">
+
+        <head th:replace="~{layout/plantilla_user :: nav}"></head>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-1 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h2>PQRS</h2>
+                            <h2 class="derecha"><a href="" data-bs-toggle="modal"
+                                    data-bs-target="#crearPqrsModal"><ion-icon name="add-circle-outline"></ion-icon></a>
+                            </h2>
+                        </div>
+                        <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                            <thead>
+                                <tr>
+                                    <th class="align-left">Descripción</th>
+                                    <th class="align-center">Creada</th>
+                                    <th class="align-center">Actualizada</th>
+                                    <th class="align-center">Estado</th>
+                                    <th class="align-center">Tipo</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="pqrs : ${listaPqrs}">
+
+                                    <td th:if="${pqrs.estadoPqrs.nombre != 'Eliminada'}" class="align-left no-bold"><a
+                                            th:text="${pqrs.descripcion}"
+                                            th:href="@{/usuario/pqrs-detalle/{id}(id=${pqrs.id})}"></a></td>
+                                    <td th:if="${pqrs.estadoPqrs.nombre == 'Eliminada'}" class="align-left no-bold"
+                                        th:text="${pqrs.descripcion}">
+                                    <td class="align-center"
+                                        th:text="${#temporals.format(pqrs.fechaRegistro, 'dd/MM/yyyy HH:mm:ss')}">Fecha
+                                        Registro</td>
+                                    <td class="align-center"
+                                        th:text="${#temporals.format(pqrs.fechaActualizacion, 'dd/MM/yyyy HH:mm:ss')}">
+                                        Fecha Actualización</td>
+                                    <td class="align-center" th:text="${pqrs.estadoPqrs.nombre}">Estado</td>
+                                    <td class="align-center" th:text="${pqrs.tipoPqrs.nombre}">Tipo</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal crearPqrs-->
+    <div class="modal fade" id="crearPqrsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crear PQRS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/usuario/pqrs}" th:object="${pqrs}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Tipo</label>
+                            <select class="form-select" th:field="*{tipoPqrs}">
+                                <option th:each="tipoPqrs : ${listaTipoPqrs}" th:value="${tipoPqrs.id}"
+                                    th:text="${tipoPqrs.nombre}">Opción
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <input type="text" class="form-control" th:field="*{descripcion}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje</label>
+                            <textarea type="text" class="form-control" rows="5" th:field="*{contenido}"
+                                required></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+
+    <script src="../js/datatable.js"></script>
+
+</body>
+
+</html>

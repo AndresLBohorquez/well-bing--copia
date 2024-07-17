@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla_admin :: head(Admin + ' - ' + Productos)}">
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+
+        <div
+            th:replace="~{layout/plantilla_admin :: sidebar(fw-bold, fw-bold, active, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold)}">
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{layout/plantilla_admin :: navbar(Productos)}"></nav>
+
+            <div class="container-fluid px-4">
+
+                <div class="row my-4 ">
+                    <h3 class="fs-4 mb-3">Detalle de producto</h3>
+                    <div class="col">
+                        <div class="card">
+                            <div class="mt-3 ms-3 me-3 mb-3">
+                                <form 
+                                    class="row g-3 needs-validation">
+                                    <div class="col-md-6">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <p th:text="${producto.nombre}"></p>
+                                        <div class="invalid-feedback">Por favor, ingrese el nombre del producto.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="precio" class="form-label">Precio</label>
+                                        <p th:text="'$ ' + ${#numbers.formatDecimal(producto.precio, 0 , 'COMMA', 0, 'POINT')}"></p>
+                                        
+                                        <div class="invalid-feedback">Por favor, ingrese el precio del producto.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="descripcion" class="form-label">Descripción</label>
+                                        <p th:text="${producto.descripcion}"></p>
+                                        <div class="invalid-feedback">Por favor, ingrese la descripción del producto.
+                                        </div>
+                                    </div>
+
+                                   
+                                    <div class="col-6">
+                                        <img th:src="@{/images/productos/} + ${producto.imagen}"
+                                            class="rounded mx-auto d-block img-producto" alt="...">
+                                    </div>
+
+                                    
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="js/datatable.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+
+</body>
+
+</html>

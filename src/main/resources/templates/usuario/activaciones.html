@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="~{layout/plantilla_user :: head(Usuario + ' - ' + Activaciones)}"></head>
+
+
+
+<body>
+    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+        aria-controls="offcanvasMenu">
+        Menú
+    </button>
+
+    <head th:replace="~{layout/plantilla_user :: menus('', '', '', active, '', '')}"></head>
+
+
+
+    <div id="content">
+
+        <head th:replace="~{layout/plantilla_user :: nav}"></head>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-1 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <h2>Activaciones</h2>
+                        <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                            <thead>
+                                <tr>
+                                    <th class="align-left">Fecha de activación</th>
+                                    <th class="align-center">Fin del periodo</th>
+                                    <th class="align-center">Valor registrado</th>
+                                    <th class="align-center">Estado</th>
+                                    <th class="align-center">Imagen</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="activacion : ${listaActivacionesUsuario}">
+                                    <th class="no-bold align-left" th:text="${#temporals.format(activacion.fecha, 'MMMM dd, yyyy')}">fecha</th>
+                                    <td class="align-center"
+                                        th:text="${#temporals.format(activacion.fechaFin, 'MMMM dd, yyyy')}">Fin</td>
+                                    <td class="align-center" th:text="'$ ' + ${activacion.valor}">$ 35000</td>
+                                    <td class="align-center" th:text="${activacion.estadoActivacion.nombre}"> </td>
+                                    <td class="align-center"><a
+                                            th:href="@{/images/activaciones/} + ${activacion.comprobante}"
+                                            target="_blank">Imagen</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </div>
+    <script src="../js/datatable.js"></script>
+
+</body>
+
+</html>

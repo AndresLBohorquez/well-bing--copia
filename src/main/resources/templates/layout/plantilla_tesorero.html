@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<!-- Sidebar -->
+<div th:fragment="sidebar(usuarios, publicaciones,  pagos, activaciones, email)" class="bg-white" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom col-center">
+        <img class="logo" src="/images/logo_nobg.png" alt="" srcset=""><span class="movimiento">Movimiento
+            Altruista</span>
+    </div>
+    <div class="list-group list-group-flush my-3">
+
+        <a href="/tesorero/usuarios"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${usuarios}|">
+            <ion-icon class="me-2 icon" name="person"></ion-icon>Usuarios</a>
+
+        <a href="/tesorero/publicaciones"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${publicaciones}|">
+            <ion-icon class="me-2 icon" name="id-card"></ion-icon>Publicaciones</a>
+
+        <a href="/tesorero/pagos" th:class="|list-group-item list-group-item-action bg-transparent second-text ${pagos}|">
+            <ion-icon class="me-2 icon" name="cash-outline"></ion-icon>Pagos</a>
+
+        <a href="/tesorero/activaciones"
+            th:class="|list-group-item list-group-item-action bg-transparent second-text ${activaciones}|">
+            <ion-icon class="me-2 icon" name="card"></ion-icon></ion-icon>Activaciones</a>
+
+        <a href="/tesorero/email" th:class="|list-group-item list-group-item-action bg-transparent second-text ${email}|">
+            <ion-icon class="me-2 icon" name="mail"></ion-icon>Email</a>
+
+        <a href="#" onclick="logout()"
+            class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+            <i class="fas fa-power-off me-2 "></i>Logout</a>
+    </div>
+</div>
+<!-- /#sidebar-wrapper -->
+
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla_admin :: head(Admin + ' - ' + Equipo)}">
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+
+        <div
+            th:replace="~{layout/plantilla_admin :: sidebar(fw-bold, fw-bold, fw-bold, fw-bold, fw-bold, active, fw-bold, fw-bold, fw-bold)}">
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{layout/plantilla_admin :: navbar(Equipo)}"></nav>
+
+            <div class="container-fluid px-4">
+
+                <div th:replace="~{layout/plantilla_admin :: cards}"></div>
+
+                <div class="row my-3 text-14">
+                    <h3 class="fs-4 mb-1">Equipo </h3>
+                    <div class="col">
+                        <div class="card shadow p-3 mb-2 bg-body-tertiary rounded">
+                            <div class="mt-3 ms-3 me-3 mb-3">
+                                <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Usuario</th>
+                                            <th class="align-center">Solicitud</th>
+                                            <th class="align-center">Nombre</th>
+                                            <th class="align-center">Apellido</th>
+                                            <th>Usuario</th>
+                                            <th class="align-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="equipo : ${listaEquipos}">
+                                            <td th:text="${equipo.usuario.nombre}"></td>
+                                            <td th:text="${equipo.usuario.apellido}">
+                                            <td><a th:href="@{/admin/detalle-usuario/{id}(id=${equipo.usuario.id})}"
+                                                    th:text="${equipo.usuario.username}"></a>
+                                            </td>
+
+                                            <td th:if="${equipo.estadoEquipo.nombre == 'Aprobado'}"><span class="badge rounded-pill bg-success">Aprobado</span></td>
+                                            <td th:if="${equipo.estadoEquipo.nombre == 'Pendiente'}"><span class="badge rounded-pill bg-warning">Pendiente</span></td>
+                                            <td th:if="${equipo.estadoEquipo.nombre == 'Rechazado'}"><span class="badge rounded-pill bg-danger">Rechazado</span></td>
+
+                                            <td th:text="${equipo.idHijo.nombre}"></td>
+                                            <td th:text="${equipo.idHijo.apellido}">
+                                            <td>
+                                                <a th:href="@{/admin/detalle-usuario/{id}(id=${equipo.idHijo.id})}"
+                                                    th:text="${equipo.idHijo.username}"></a>
+                                            </td>
+
+                                            <td>
+                                                <div class="row">
+                                                    
+                                                    <a th:href="@{/admin/equipo/aprobar/{id}(id=${equipo.id})}"
+                                                        class="col-1" style="color:green"><ion-icon
+                                                            name="thumbs-up"></ion-icon></a>
+                                                    <a th:href="@{/admin/equipo/pendiente/{id}(id=${equipo.id})}"
+                                                        class="col-1" style="color:orange"><ion-icon
+                                                            name="information-circle-outline"></ion-icon></a>
+                                                    <a th:href="@{/admin/equipo/rechazar/{id}(id=${equipo.id})}"
+                                                        class="col-1" style="color:red"><ion-icon
+                                                            name="thumbs-down"></ion-icon></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+    <div th:replace="~{layout/plantilla_user :: alertas}"></div>
+    <script src="../js/datatable.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+
+</body>
+
+</html>

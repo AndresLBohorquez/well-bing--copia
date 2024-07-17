@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla_admin :: head(Admin + ' - ' + Publicaciones)}">
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+
+        <div
+            th:replace="~{layout/plantilla_admin :: sidebar(fw-bold, fw-bold, fw-bold, active, fw-bold, fw-bold, fw-bold, fw-bold, fw-bold)}">
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{layout/plantilla_admin :: navbar(Publicaciones)}"></nav>
+
+            <div class="container-fluid px-4">
+
+                <div th:replace="~{layout/plantilla_admin :: cards}"></div>
+
+                <div class="row my-3 text-14">
+                    <h3 class="fs-4 mb-1">Publicaciones </h3>
+                    <div class="col">
+                        <div class="card shadow p-3 mb-2 bg-body-tertiary rounded">
+                            <div class="mt-3 ms-3 me-3 mb-3">
+                                <table id="example" class="table bg-white rounded shadow-sm  table-hover tabla">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Link</th>
+                                            <th class="align-center">Estado</th>
+                                            <th class="align-center">Soporte</th>
+                                            <th>Usuario</th>
+                                            <th>Producto</th>
+                                            <th>Tarea</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="publicacion : ${listaPublicaciones}">
+                                            <td
+                                                th:text="${#temporals.format(publicacion.fecha, 'MMMM dd, yyyy HH:mm:ss')}">
+                                                1</td>
+                                            <td><a th:href="${publicacion.link}"
+                                                    th:text="${publicacion.link.length() > 20 ? publicacion.link.substring(0, 20) + '...' : publicacion.link}"
+                                                    target="_blank"></a>
+                                            </td>
+                                            <td th:if="${publicacion.estadoPublicacion.nombre == 'Aprobada'}">
+                                                <span class="badge rounded-pill text-bg-success">Aprobada</span>
+                                            </td>
+                                            <td class="align-left"
+                                                th:if="${publicacion.estadoPublicacion.nombre == 'Pendiente'}">
+                                                <span class="badge rounded-pill text-bg-warning">Pendiente</span>
+                                            </td>
+                                            <td class="align-left"
+                                                th:if="${publicacion.estadoPublicacion.nombre == 'Rechazada'}">
+                                                <span class="badge rounded-pill text-bg-danger">Rechazada</span>
+                                            </td>
+
+                                            <td><a th:href="@{/images/publicaciones/} + ${publicacion.soporte}"
+                                                    th:text="${publicacion.soporte}" th:target="_blank"></a></td>
+
+
+                                            <td><a th:href="@{/admin/detalle-usuario/{id}(id=${publicacion.usuario.id})}"
+                                                    th:text="${publicacion.usuario.username}"></a></td>
+
+                                            <td><a th:href="@{/admin/detalle-producto/{id}(id=${publicacion.tarea.producto.id})}"
+                                                    th:text="${publicacion.tarea.producto.nombre}"></a></td>
+
+                                            <td th:text="${publicacion.tarea.nombre}"></td>
+                                            <td>
+                                                <div class="col-center">
+                                                    <a th:href="@{/admin/aprobarPublicacion/{id}(id=${publicacion.id})}"
+                                                        class="col-4" style="color:green">
+                                                        <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                                    </a>
+                                                    <a th:href="@{/admin/pendientePublicacion/{id}(id=${publicacion.id})}"
+                                                        class="col-4" style="color:orange">
+                                                        <ion-icon name="pause-circle-outline"></ion-icon>
+                                                    </a>
+                                                    <a th:href="@{/admin/rechazarPublicacion/{id}(id=${publicacion.id})}"
+                                                        class="col-4" style="color:red">
+                                                        <ion-icon name="close-circle-outline"></ion-icon>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="../js/datatable.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+    </script>
+
+</body>
+
+</html>

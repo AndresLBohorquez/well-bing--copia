@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head th:replace="~{layout/plantilla :: head(productos, '')}"></head>
+
+<header th:replace="~{layout/plantilla :: header('', active,'','','')}"></header>
+
+<body class="d-flex flex-column h-100">
+
+    <section>
+        <div class="container col-xxl-8 px-4 py-5 alto">
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col col-center mt-5" th:each="producto : ${listaProductos}">
+                        <div class="card" style="width: 18rem;">
+                            <a th:href="@{/productos/detalle-producto/{id}(id=${producto.id})}">
+                                <img th:src="@{/images/productos/} + ${producto.imagen}"  class="card-img-top border-bottom" alt="img">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${producto.nombre}">Nombre del producto</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"
+                                    th:text="'$ ' + ${#numbers.formatDecimal(producto.precio, 0 , 'COMMA', 0, 'POINT')}">
+                                    Precio</li>
+                                <li class="list-group-item">
+                                    <p class="card-text descripcion"
+                                        th:text="${producto.descripcion.length() > 85 ? producto.descripcion.substring(0, 85) + '...' : producto.descripcion}">
+                                        Descripción completa del
+                                        producto y toda la información necesaria
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+
+
+</body>
+
+</html>
