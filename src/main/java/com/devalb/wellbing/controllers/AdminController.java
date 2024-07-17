@@ -70,7 +70,7 @@ public class AdminController {
     public String goToAdmin(Model model, Authentication auth) {
         cargarVistas(model, auth);
         model.addAttribute("listaTareas", tareaService.getTareas());
-        return "/admin/index";
+        return "admin/index";
     }
 
     @RequestMapping("/admin/crear-tarea/{id}")
